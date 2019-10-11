@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-8 mx-auto text-center border p-2">
+        <div class="row">
+            <div class="col-md-11 mx-auto text-center">
+                {% for person in online_users %}
+                    {% include "online_user_dialog.html" with person=person %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

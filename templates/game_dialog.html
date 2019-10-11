@@ -1,0 +1,14 @@
+<div class="w-25 text-center tile p-1 float-left bg-light">
+    <div class="border">
+        <p class="m-1 small">Max score: {{ game.max_score }} </p>
+        <p class="m-1 small ">Shut out dice: {{ game.shut_out_dice }} </p>
+        <p class="m-1 small ">Dice numer: {{ game.dice_number }} </p>
+        <div class="row">
+            <a href="#" class="btn btn-primary mx-auto w-50 btn-sm">Play</a>
+        </div>
+        <div class="clearfix"></div>
+        <p class="m-1 h6">created by:</p>
+        <p class="m-1 h6">{{ game.player.user.username }} </p>
+        <p class="m-1 small ">score: {{ game.game_score }} </p>
+    </div>
+</div>

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block tabs %}
+    <a href="/">
+        <button type="button" class="btn btn-success float-left m-1">Home</button>
+    </a>
+    <a href="#">
+        <button type="button" class="btn btn-primary float-left m-1">Profile</button>
+    </a>
+    <a href="/all-games/">
+        <button type="button" class="btn float-left m-1">Start Game</button>
+    </a>
+    <a href="/design-game/">
+        <button type="button" class="btn float-left m-1">Design Game</button>
+    </a>
+    <a href="/all-users/">
+        <button type="button" class="btn float-left m-1">Users</button>
+    </a>
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center border p-2">
+            <div class="row">
+
+                <div class="col-md-4 mx-auto text-center  p-2">
+                    <img class="img-fluid rounded-circle w-75 m-2 mx-auto" src={{ profile.avatar.url }}>
+                    <div class="clearfix"></div>
+                    <a href="#" class="btn btn-success mx-auto m-2">Play</a>
+                    <button id="add_friend" href="#" class="btn btn-primary mx-auto m-2">Add friend</button>
+                    <div class="form-group">
+                        <p class="m-3 mt-5 h3 text-left ">Comment:</p>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    <div class="float-left">
+                        <form class="rating">
+                            <label>
+                                <input type="radio" name="stars" value="1" checked="true"/>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="2"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="3"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="4"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="5"/>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                        </form>
+                    </div>
+                    <button id="user_review" href="#" class="btn btn-primary mx-auto m-2">Send comment</button>
+                </div>
+                <div class="col-md-7 mx-auto text-center border p-2">
+                    <p class="m-3 h2 text-left" id="username_box">{{ profile.user.username }} </p>
+                    <p class="m-3 text-left ">{{ profile.user.first_name }},{{ profile.user.last_name }} </p>
+                    <p class="m-2 small text-right">{{ profile.user.email }} </p>
+                    <p class="m-1 h4 text-primary text-left">Bio:</p>
+                    <p class="m-2 h5 text-left">{{ profile.bio }} </p>
+                    <p class="m-1 h5 text-primary text-left">Location:</p>
+                    <p class="m-2 h6 text-left">{{ profile.location }} </p>
+                    <p class="m-1 h5 text-primary text-left">Birth date:</p>
+                    <p class="m-2 h6 text-left">{{ profile.birth_date }} </p>
+
+
+                    <p class="m-1 text-primary text-left">Game count:</p>
+                    <p class="m-2 text-left">{{ profile.game_count }} </p>
+                    <p class="m-1 text-primary text-left">Win count:</p>
+                    <p class="m-2 text-left">{{ profile.win_count }} </p>
+                    <p class="m-1 text-primary text-left">Designed game count:</p>
+                    <p class="m-2 text-left">{{ profile.designed_game_count }} </p>
+                    <p class="m-1 text-primary text-left">Score:</p>
+                    <p class="m-2 text-left">{{ profile.score }} </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var rate = 1;
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        $("#add_friend").click(function () {
+            $.ajax({
+                url: "{% url 'add-friend' %}",
+                data: {
+                    'friend_player_id': {{ profile.id }},
+                    'csrfmiddlewaretoken': csrftoken
+                },
+                type: "POST",
+                dataType: 'json',
+                success: function () {
+                    $("#alert_box").append(
+                            '<div class="alert alert-success alert-dismissible fade show" role="alert">your friend request have beed sent to <strong>'
+                            + $("#username_box").text()
+                            + '</strong>. <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button> </div>'
+                    );
+                },
+            });
+
+        });
+
+        $("#user_review").click(function () {
+            $.ajax({
+                url: "{% url 'user-review' %}",
+                data: {
+                    'target_player_id': {{ profile.id }},
+                    'score': rate,
+                    'comment': $("#comment").val(),
+                    'csrfmiddlewaretoken': csrftoken
+                },
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                    $("#alert_box").append(
+                            '<div class="alert alert-success alert-dismissible fade show" role="alert">your comment have beed sent to <strong>'
+                            + $("#username_box").text()
+                            + '</strong> have beed sent. <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button> </div>'
+                    );
+                }
+            });
+
+        });
+
+        $(':radio').change(function () {
+            rate = this.value;
+        });
+    </script>
+{% endblock %}

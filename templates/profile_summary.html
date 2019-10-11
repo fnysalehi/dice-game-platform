@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-8 mx-auto text-center border p-2">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">My score</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">My games</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">My invitations</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane container active" id="home">
+                <div class="row">
+
+                    <div class="col-md-3 text-center p-2">
+
+                        <p class="m-1  text-left">score: {{ profile.score }} </p>
+                        <p class="m-1  text-left">won: {{ profile.win_count }} </p>
+                        <p class="m-1  text-left">played: {{ profile.game_count }} </p>
+                    </div>
+                    <div class="col-md-8 text-center p-2">
+                        {% for review in user_review %}
+                            {% include "review_user_dialog.html" with review=review false=false %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane container fade" id="menu1">
+                <div class="row">
+
+                    <div class="col-md-3 text-center p-2">
+
+                        <p class="m-1  text-left">games created: {{ create_len }} </p>
+                        <p class="m-1  text-left">online player of games: {{ game_played }} </p>
+                    </div>
+                    <div class="col-md-8 text-center p-2">
+                        {% for game in user_games %}
+                            {% include "game_dialog.html" with game=game %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane container fade" id="menu2">
+                {% for friend in user_friend_regs %}
+                    {% include "friend_req_dialog.html" with friend=friend %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

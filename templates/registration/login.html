@@ -1,0 +1,26 @@
+
+
+{% extends 'base.html' %}
+
+{% block tabs %}
+    <a href="../..">
+        <button type="button" class="btn btn-success float-left m-1">Home</button>
+    </a>
+    <a href="#">
+        <button type="button" class="btn btn-primary float-right m-1">Login</button>
+    </a>
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center border p-2">
+            <p class="m-5 h1 text-left">Login</p>
+            <form method="post">
+                {% csrf_token %}
+                <p><label for="id_username">Username:</label> <input class="form-control w-25 mx-auto" type="text" name="username" autofocus="" required="" id="id_username"></p>
+                <p><label for="id_password">Password:</label> <input class="form-control w-25 mx-auto" type="password" name="password" required="" id="id_password"></p>
+                <button type="submit" class="btn btn-primary mx-auto m-1">Login</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

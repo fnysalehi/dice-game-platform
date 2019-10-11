@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center border p-3 bg-dark">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        {% include "game_slide_dialog.html" with game=top_game title="Top Score Game" disc=top_disc %}
+                    </div>
+                    <div class="carousel-item ">
+                        {% include "game_slide_dialog.html" with game=newest_game title="Newest Game" disc=newest_disc %}
+                    </div>
+                    <div class="carousel-item ">
+                        {% include "game_slide_dialog.html" with game=online_game title="Most Play Game" disc=online_disc %}
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% block rest_content %}
+    {% endblock %}
+
+{% endblock %}

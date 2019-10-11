@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block tabs %}
+        <a href="..">
+        <button type="button" class="btn btn-success float-left m-1">Home</button>
+    </a>
+    <a href="../profile/">
+        <button type="button" class="btn float-left m-1">Profile</button>
+    </a>
+    <a href="../all-games/">
+        <button type="button" class="btn float-left m-1">Start Game</button>
+    </a>
+    <a href="#">
+        <button type="button" class="btn btn-primary float-left m-1">Design Game</button>
+    </a>
+    <a href="../all-users/">
+        <button type="button" class="btn float-left m-1">Users</button>
+    </a>
+{% endblock %}
+
+{% block page_content %}
+    <form action="{% url 'design' %}" method="post">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center border p-2">
+                <p class="h4 float-left">Lets design the game:</p>
+                <div class="clearfix"></div>
+                <p class="w-auto float-left p-1 text-white rounded bg-primary">1. Maximum of scores</p>
+                <div class="col-10 m-2">
+                    <input class="form-control" type="number" value="100" id="number-of-score" name="max_score">
+                </div>
+                <p class="w-auto float-left p-1 text-white rounded bg-primary">2.Shut out dice</p>
+                <div class="col-10 m-2">
+                    <select class="form-control" id="shut-out-dice" name="shut_out_dice">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </div>
+
+                <p class="w-auto float-left p-1 text-white rounded bg-primary">3.Dice number</p>
+                <div class="clearfix"></div>
+                <div class="col-10 m-2">
+                    <div class="row block">
+
+                        <div class="col-2">
+                            <label><input class="m-1" type="radio" name="dice_number" value="1" checked>1</label>
+                        </div>
+                        <div class="col-2">
+                            <label><input class="m-1" type="radio" name="dice_number" value="2">2</label>
+                        </div>
+                        <div class="col-2">
+                            <label><input class="m-1" type="radio" name="dice_number" value="4">4</label>
+                        </div>
+
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success float-left m-2" value="Save"/>
+            </div>
+        </div>
+    </form>
+{% endblock %}

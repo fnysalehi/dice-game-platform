@@ -1,0 +1,22 @@
+{% extends 'user-base.html' %}
+
+{% block tabs %}
+    <button type="button" class="btn btn-primary float-left m-1">Home</button>
+    <a href="profile/">
+    <button type="button" class="btn btn-default float-left m-1">Profile</button>
+    </a>
+    <a href="all-games/">
+        <button type="button" class="btn btn-default float-left m-1">Start Game</button>
+    </a>
+    <a href="design-game/">
+        <button type="button" class="btn btn-default float-left m-1">Design Game</button>
+    </a>
+    <a href="all-users/">
+        <button type="button" class="btn btn-default float-left m-1">Users</button>
+    </a>
+{% endblock %}
+
+{% block rest_content %}
+    {% include "profile_summary.html" %}
+    {% include "online_users.html" with online_users=online_users %}
+{% endblock %}

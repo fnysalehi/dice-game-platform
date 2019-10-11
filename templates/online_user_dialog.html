@@ -1,0 +1,13 @@
+<div class="w-25 text-center tile p-1 float-left">
+    <div class="border">
+        <img class="img-fluid rounded-circle w-75 m-2" src={{ person.avatar.url }}>
+        <a href="/profile/{{ person.id }}"><p class="m-1 h5">{{ person.user.username }} </p></a>
+        {% if person.is_online %}
+            <p class="m-1 text-success">Online</p>
+        {% else %}
+            <p class="m-1 text-danger">Offline</p>
+        {% endif %}
+        <p class="m-1">score: {{ person.score }} </p>
+        <p class="m-1">played: {{ person.game_count }} </p>
+    </div>
+</div>

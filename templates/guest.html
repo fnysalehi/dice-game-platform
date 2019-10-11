@@ -1,0 +1,14 @@
+{% extends 'user-base.html' %}
+
+{% block tabs %}
+    <button type="button" class="btn btn-primary float-left m-1">Home</button>
+    <button type="button" class="btn btn-default float-left m-1">Start Game</button>
+    <button type="button" class="btn btn-default float-left m-1">Design Game</button>
+    <a href="accounts/login/">
+        <button type="button" class="btn btn-default float-right m-1">Login</button>
+    </a>
+{% endblock %}
+
+{% block rest_content %}
+    {% include "online_users.html" with online_users=online_users %}
+{% endblock %}

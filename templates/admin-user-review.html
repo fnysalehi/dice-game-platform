@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block tabs %}
+    <a href="..">
+        <button type="button" class="btn btn-success float-left m-1">Home</button>
+    </a>
+    <a href="#">
+        <button type="button" class="btn btn-primary float-left m-1">User Review</button>
+    </a>
+    <a href="../admin-comment-review/">
+        <button type="button" class="btn float-left m-1">Game Review</button>
+    </a>
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-8 mx-auto text-center border p-2">
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="m-1 h5 float-left">sort by:</p>
+                    <div class="clearfix"></div>
+
+                    <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="user-tab" data-toggle="pill" href="#user" role="tab"
+                               aria-controls="home" aria-selected="true">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="date-tab" data-toggle="pill" href="#date" role="tab"
+                               aria-controls="profile" aria-selected="false">Date</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8 tab-content">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                            {% for review in reviews_user %}
+                                {% include "review_user_dialog.html" with review=review %}
+                            {% endfor %}
+                        </div>
+                        <div class="tab-pane fade show" id="date" role="tabpanel" aria-labelledby="date-tab">
+                            {% for review in reviews_date %}
+                                {% include "review_user_dialog.html" with review=review %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

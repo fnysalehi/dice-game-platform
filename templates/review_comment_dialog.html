@@ -1,0 +1,21 @@
+<div class="card w-100 m-2">
+    <h5 class="card-header">
+        <div class="row">
+
+            <div class="col-md-1 p-0 my-auto">
+                <img class="img-fluid rounded-circle w-75 p-0 float-left my-auto" src={{ review.player.avatar.url }}>
+            </div>
+            <div class="col-md-9 p-1 my-auto">
+                <p class="float-left my-auto">{{ review.player.user.username }}</p>
+            </div>
+        </div>
+    </h5>
+    <div class="card-body">
+        <p class="card-text float-left p-3">{{ review.comment }}</p>
+        <div class="clearfix"></div>
+        {% if review.publish == false %}
+            <a href="#" class="btn btn-danger float-left m-1">Reject</a>
+            <a href="#" class="btn btn-success float-left m-1">Accept</a>
+        {% endif %}
+    </div>
+</div>
